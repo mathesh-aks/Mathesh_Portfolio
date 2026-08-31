@@ -50,7 +50,7 @@ export const CaseStudyTempt: React.FC<CaseStudyTemptProps> = ({ onNavigate }) =>
       {/* Section 1: Hero Section */}
       <section
         id="tempt-hero-section"
-        className="relative w-full min-h-[85vh] md:h-[90vh] flex items-end px-5 md:px-20 pb-16 border-b border-[#222222] overflow-hidden"
+        className="relative w-full min-h-[80vh] min-h-[80dvh] md:min-h-[90vh] flex items-end px-5 md:px-20 pb-16 border-b border-[#222222] overflow-hidden"
       >
         {/* Background Hero Image */}
         <div className="absolute inset-0 z-0">

@@ -14,11 +14,19 @@
     --font-mono: 'JetBrains Mono', monospace;
   }
 
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+
   body {
     background-color: #080808;
     color: #e5e5e5;
     font-family: 'Hanken Grotesk', sans-serif;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: auto;
   }
 
   h1, h2, h3, h4, .font-syne {
@@ -160,4 +168,16 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #c4a47c; 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

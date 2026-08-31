@@ -233,18 +233,18 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
   )}`;
 
   return (
-    <div id="contact-view-container" className="w-full pt-[90px] pb-24 px-5 md:px-20 bg-[#080808] text-[#e5e5e5]">
+    <div id="contact-view-container" className="w-full pt-[80px] pb-20 px-5 md:px-20 bg-[#080808] text-[#e5e5e5]">
       <div className="max-w-[1920px] mx-auto">
         {/* Header */}
         <ScrollReveal variant="fade-up">
-          <div className="mb-14 border-b border-[#222222] pb-8">
-            <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-3">
-              06 / GET IN TOUCH
+          <div className="mb-10 md:mb-12 border-b border-[#222222] pb-6 md:pb-8">
+            <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-2.5">
+              07 / GET IN TOUCH
             </span>
-            <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#e5e5e5]">
-              LET'S BUILD SOMETHING <span className="font-serif italic font-light text-[#c4a47c]">CINEMATIC.</span>
+            <h1 className="font-syne text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#e5e5e5]">
+              LET'S BUILD SOMETHING <span className="font-serif italic font-normal text-[#c4a47c]">CINEMATIC.</span>
             </h1>
-            <p className="font-grotesk text-base sm:text-lg text-[#888888] max-w-2xl mt-4">
+            <p className="font-grotesk text-base sm:text-lg text-[#888888] max-w-2xl mt-3 leading-relaxed">
               Available for AI creative direction, prompt engineering pipelines, high-impact brand
               campaigns, and visual storytelling collaborations.
             </p>
@@ -252,7 +252,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
         </ScrollReveal>
 
         {/* Contact Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
           {/* Left: Quick Connect & Details (5 Cols) */}
           <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
             <div className="space-y-6">

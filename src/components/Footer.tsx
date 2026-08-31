@@ -12,35 +12,35 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer id="main-footer" className="w-full bg-[#0c0c0c] border-t border-[#222222] pt-20 pb-12 px-5 md:px-20 text-[#e5e5e5]">
+    <footer id="main-footer" className="w-full bg-[#0c0c0c] border-t border-[#222222] pt-16 pb-10 px-5 md:px-20 text-[#e5e5e5]">
       <div className="max-w-[1920px] mx-auto">
         {/* Massive Display Title */}
-        <div className="border-b border-[#222222] pb-12 mb-12 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <div className="border-b border-[#222222] pb-10 mb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div>
-            <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-4">
-              AI CREATIVE DIRECTOR &amp; PROMPT ARCHITECT
+            <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-3">
+              AI CREATIVE DESIGNER · PROMPT ENGINEER
             </span>
-            <h2 className="font-syne text-5xl sm:text-7xl md:text-8xl lg:text-[100px] font-extrabold uppercase tracking-tighter text-[#e5e5e5] leading-[85%]">
-              MATHESH <span className="font-serif italic font-light text-[#c4a47c]">A K S</span>
+            <h2 className="font-syne text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold uppercase tracking-tight text-[#e5e5e5] leading-[90%]">
+              MATHESH <span className="font-serif italic font-normal text-[#c4a47c]">A K S</span>
             </h2>
           </div>
 
           <button
             id="footer-scroll-top-btn"
             onClick={scrollToTop}
-            className="self-start lg:self-auto p-4 border border-[#222222] bg-[#121212] text-[#888888] hover:text-[#c4a47c] hover:border-[#c4a47c] transition-all cursor-pointer flex items-center gap-2 font-jetbrains text-xs uppercase tracking-wider"
+            className="self-start lg:self-auto px-5 py-3 border border-[#222222] bg-[#121212] text-[#888888] hover:text-[#c4a47c] hover:border-[#c4a47c] transition-all cursor-pointer flex items-center gap-2 font-jetbrains text-xs uppercase tracking-wider"
           >
             <span>BACK TO TOP</span>
-            <ArrowUp size={16} />
+            <ArrowUp size={14} />
           </button>
         </div>
 
         {/* Links & Details Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16 font-jetbrains text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-12 font-jetbrains text-xs">
           {/* Col 1: Navigation */}
           <div>
-            <span className="text-[#666666] uppercase block mb-4 font-semibold tracking-wider">NAVIGATION</span>
-            <ul className="space-y-2.5">
+            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">NAVIGATION</span>
+            <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => {
@@ -90,8 +90,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Col 2: Featured Case Studies */}
           <div>
-            <span className="text-[#666666] uppercase block mb-4 font-semibold tracking-wider">CASE STUDIES</span>
-            <ul className="space-y-2.5">
+            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">CASE STUDIES</span>
+            <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => {
@@ -119,8 +119,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Col 3: Direct Connect */}
           <div>
-            <span className="text-[#666666] uppercase block mb-4 font-semibold tracking-wider">DIRECT CONTACT</span>
-            <div className="space-y-2 text-[#888888]">
+            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">DIRECT CONTACT</span>
+            <div className="space-y-1.5 text-[#888888]">
               <a
                 href="tel:+919789611569"
                 className="hover:text-[#c4a47c] transition-colors block text-left font-jetbrains text-xs text-[#e5e5e5]"
@@ -133,18 +133,18 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               >
                 mathesh.aks@gmail.com
               </a>
-              <p className="text-[#666666] text-[11px] leading-relaxed">
+              <p className="text-[#888888] text-[11px] leading-relaxed pt-1">
                 Madurai &amp; Chennai, Tamil Nadu, India
               </p>
-              <span className="inline-block mt-2 px-2 py-0.5 border border-[#c4a47c]/30 text-[#c4a47c] text-[10px]">
-                AVAILABLE FOR HIRE &amp; COLLAB
+              <span className="inline-block mt-1 px-2 py-0.5 border border-[#c4a47c]/40 text-[#c4a47c] text-[10px]">
+                AVAILABLE FOR COLLABORATIONS
               </span>
             </div>
           </div>
 
           {/* Col 4: Socials */}
           <div>
-            <span className="text-[#666666] uppercase block mb-4 font-semibold tracking-wider">CONNECT</span>
+            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">CONNECT</span>
             <div className="flex flex-col space-y-2 text-[#888888]">
               <a
                 href="https://www.linkedin.com/in/mathesh-a-k-s-1333241b9"
@@ -169,14 +169,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Bottom Copyright Strip */}
-        <div className="pt-8 border-t border-[#222222] flex flex-col sm:flex-row items-center justify-between gap-4 font-jetbrains text-[11px] text-[#666666]">
+        <div className="pt-6 border-t border-[#222222] flex flex-col sm:flex-row items-center justify-between gap-4 font-jetbrains text-[11px] text-[#888888]">
           <div>
-            © 2025–2026 MATHESH A K S. Built with intentional craftsmanship.
+            © 2025–2026 MATHESH A K S. Designed with intentional restraint.
           </div>
 
           <div className="flex items-center gap-2 text-[#c4a47c]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#c4a47c]"></span>
-            <span>AI CREATIVE PORTFOLIO</span>
+            <span>M·AKS // PORTFOLIO</span>
           </div>
         </div>
       </div>

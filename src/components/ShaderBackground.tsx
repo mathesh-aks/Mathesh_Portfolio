@@ -1,20 +1,30 @@
 import React, { useEffect, useRef } from 'react';
 
 export const ShaderBackground: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    let isVisible = true;
+    let animationFrameId: number;
+
+    const gl = canvas.getContext('webgl', { powerPreference: 'low-power' }) ||
+      canvas.getContext('experimental-webgl');
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     if (!gl) {
       // Fallback 2D canvas if WebGL is unavailable
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-      let frameId: number;
       let t = 0;
       const render2D = () => {
+        if (!isVisible) return;
         t += 0.01;
         ctx.fillStyle = '#080808';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -30,10 +40,13 @@ export const ShaderBackground: React.FC = () => {
           ctx.lineTo(canvas.width, j);
         }
         ctx.stroke();
-        frameId = requestAnimationFrame(render2D);
+        if (!prefersReducedMotion) {
+          animationFrameId = requestAnimationFrame(render2D);
+        }
       };
+
       render2D();
-      return () => cancelAnimationFrame(frameId);
+      return () => cancelAnimationFrame(animationFrameId);
     }
 
     const vs = `
@@ -46,15 +59,11 @@ export const ShaderBackground: React.FC = () => {
     `;
 
     const fs = `
-      precision highp float;
+      precision mediump float;
       varying vec2 v_texCoord;
       uniform float u_time;
       uniform vec2 u_resolution;
       uniform vec2 u_mouse;
-
-      float noise(vec2 p) {
-        return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
-      }
 
       void main() {
         vec2 uv = v_texCoord;
@@ -120,7 +129,7 @@ export const ShaderBackground: React.FC = () => {
     let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
     const handleMouseMove = (event: MouseEvent) => {
-      if (!canvas) return;
+      if (!canvas || !isVisible) return;
       const rect = canvas.getBoundingClientRect();
       if (rect.width && rect.height) {
         const nx = (event.clientX - rect.left) / rect.width;
@@ -130,12 +139,28 @@ export const ShaderBackground: React.FC = () => {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
+    // Passive touch handler that never calls preventDefault or blocks scroll
+    const handleTouchMove = (event: TouchEvent) => {
+      if (!canvas || !isVisible || !event.touches[0]) return;
+      const touch = event.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width && rect.height) {
+        const nx = (touch.clientX - rect.left) / rect.width;
+        const ny = 1.0 - (touch.clientY - rect.top) / rect.height;
+        mouse.x = nx * canvas.width;
+        mouse.y = ny * canvas.height;
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
 
     const syncSize = () => {
       if (!canvas) return;
-      const w = canvas.clientWidth || window.innerWidth;
-      const h = canvas.clientHeight || window.innerHeight;
+      // Cap devicePixelRatio to 1.5 on high-DPI mobile screens to save GPU
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const w = Math.floor((canvas.clientWidth || window.innerWidth) * dpr);
+      const h = Math.floor((canvas.clientHeight || window.innerHeight) * dpr);
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
@@ -149,37 +174,62 @@ export const ShaderBackground: React.FC = () => {
       resizeObserver.observe(canvas);
     }
 
-    let animationFrameId: number;
-
     const render = (t: number) => {
+      if (!isVisible) return;
       syncSize();
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (uTime) gl.uniform1f(uTime, t * 0.001);
       if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
       if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      animationFrameId = requestAnimationFrame(render);
+
+      if (!prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
+    // Render initial frame
     animationFrameId = requestAnimationFrame(render);
+
+    // Pause WebGL rendering loop when hero is scrolled out of viewport to free mobile/tablet CPU & GPU
+    let visibilityObserver: IntersectionObserver | null = null;
+    if ('IntersectionObserver' in window) {
+      visibilityObserver = new IntersectionObserver(
+        ([entry]) => {
+          const wasVisible = isVisible;
+          isVisible = entry.isIntersecting;
+          if (isVisible && !wasVisible && !prefersReducedMotion) {
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = requestAnimationFrame(render);
+          }
+        },
+        { threshold: 0 }
+      );
+      visibilityObserver.observe(container);
+    }
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
       if (resizeObserver) resizeObserver.disconnect();
+      if (visibilityObserver) visibilityObserver.disconnect();
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
     <div
+      ref={containerRef}
       id="webgl-shader-container"
-      className="absolute inset-0 w-full h-full z-0 opacity-45 mix-blend-screen pointer-events-none overflow-hidden"
+      className="absolute inset-0 w-full h-full z-0 opacity-45 mix-blend-screen pointer-events-none overflow-hidden touch-none"
+      style={{ touchAction: 'auto', pointerEvents: 'none' }}
     >
       <canvas
         ref={canvasRef}
         id="shader-canvas"
-        className="w-full h-full block"
+        className="w-full h-full block pointer-events-none"
       />
     </div>
   );
 };
+

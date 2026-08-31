@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ViewType } from '../types';
 import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 
@@ -10,6 +10,19 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Manage body scroll locking when mobile menu is active
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
 
   const navItems: { label: string; view: ViewType }[] = [
     { label: 'WORK', view: 'work' },
@@ -34,13 +47,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
         onClick={() => handleNavClick('home')}
         className="group flex items-center gap-3 text-left cursor-pointer"
       >
-        <div className="w-1 h-7 gold-gradient transition-all duration-300 group-hover:h-8"></div>
+        <div className="w-8 h-8 border border-[#c4a47c]/60 bg-[#121212] flex items-center justify-center font-jetbrains text-xs font-bold text-[#c4a47c] tracking-wider transition-all duration-300 group-hover:border-[#c4a47c] group-hover:bg-[#c4a47c]/10">
+          M·AKS
+        </div>
         <div className="flex flex-col">
-          <span className="font-serif text-2xl font-normal tracking-tight italic text-[#e5e5e5] group-hover:text-[#c4a47c] transition-colors">
+          <span className="font-syne text-base sm:text-lg font-bold tracking-tight text-[#e5e5e5] group-hover:text-[#c4a47c] transition-colors">
             MATHESH A K S
           </span>
-          <span className="font-jetbrains text-[9px] uppercase tracking-[0.3em] text-[#666666] -mt-1">
-            AI CREATIVE &amp; PROMPT
+          <span className="font-jetbrains text-[9px] uppercase tracking-[0.2em] text-[#888888] -mt-0.5">
+            AI Creative Designer · Prompt Engineer
           </span>
         </div>
       </button>
@@ -57,10 +72,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
               id={`nav-link-${item.view}`}
               key={item.view}
               onClick={() => handleNavClick(item.view)}
-              className={`font-jetbrains text-[10px] uppercase tracking-[0.2em] transition-all duration-300 py-1 relative cursor-pointer ${
+              className={`font-jetbrains text-xs uppercase tracking-[0.2em] transition-all duration-200 py-1 relative cursor-pointer ${
                 isActive
                   ? 'text-[#c4a47c] font-semibold border-b border-[#c4a47c]'
-                  : 'text-[#666666] hover:text-[#e5e5e5]'
+                  : 'text-[#888888] hover:text-[#e5e5e5]'
               }`}
             >
               {item.label}
@@ -69,10 +84,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
         })}
       </div>
 
-      {/* Status Badge */}
-      <div className="hidden lg:flex items-center gap-3 font-jetbrains text-xs text-[#666666] pl-6 border-l border-[#222222]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#c4a47c] animate-pulse inline-block"></span>
-        <span className="text-[#888888] text-[11px] tracking-wider">AI × Creative Technology</span>
+      {/* Trajectory / Differentiator Signature Badge */}
+      <div className="hidden lg:flex items-center gap-2.5 font-jetbrains text-[11px] text-[#888888] pl-6 border-l border-[#222222]">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#c4a47c] inline-block"></span>
+        <span className="tracking-wider">Business → Marketing → AI → Creative</span>
       </div>
 
       {/* Mobile Menu Button */}

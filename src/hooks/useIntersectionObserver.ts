@@ -9,7 +9,7 @@ interface UseIntersectionObserverOptions {
 export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
   options: UseIntersectionObserverOptions = {}
 ): [RefObject<T | null>, boolean] {
-  const { threshold = 0.15, rootMargin = '0px 0px -50px 0px', triggerOnce = true } = options;
+  const { threshold, rootMargin, triggerOnce = true } = options;
   const elementRef = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -30,6 +30,26 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
       return;
     }
 
+    // Check if element is already within the viewport on mount
+    const rect = element.getBoundingClientRect();
+    const isAlreadyInViewport =
+      rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom > 0 &&
+      rect.left < (window.innerWidth || document.documentElement.clientWidth) &&
+      rect.right > 0;
+
+    if (isAlreadyInViewport) {
+      setIsVisible(true);
+      if (triggerOnce) {
+        return;
+      }
+    }
+
+    // Calculate mobile-friendly default margins and thresholds
+    const isMobileOrTablet = window.innerWidth < 1024;
+    const effectiveThreshold = threshold !== undefined ? threshold : isMobileOrTablet ? 0.05 : 0.1;
+    const effectiveRootMargin = rootMargin !== undefined ? rootMargin : isMobileOrTablet ? '0px 0px -15px 0px' : '0px 0px -30px 0px';
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -42,8 +62,8 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
         }
       },
       {
-        threshold,
-        rootMargin,
+        threshold: effectiveThreshold,
+        rootMargin: effectiveRootMargin,
       }
     );
 
@@ -59,3 +79,4 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
 
   return [elementRef, isVisible];
 }
+

@@ -18,9 +18,9 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   children,
   variant = 'fade-up',
   delay = 0,
-  duration = 700,
-  threshold = 0.12,
-  rootMargin = '0px 0px -40px 0px',
+  duration = 650,
+  threshold,
+  rootMargin,
   className = '',
   as: Component = 'div',
   id,
@@ -37,15 +37,15 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       case 'fade-up':
         return isVisible
           ? 'opacity-100 translate-y-0'
-          : 'opacity-0 translate-y-8';
+          : 'opacity-0 translate-y-6';
       case 'fade-left':
         return isVisible
           ? 'opacity-100 translate-x-0'
-          : 'opacity-0 -translate-x-8';
+          : 'opacity-0 -translate-x-6';
       case 'fade-right':
         return isVisible
           ? 'opacity-100 translate-x-0'
-          : 'opacity-0 translate-x-8';
+          : 'opacity-0 translate-x-6';
       case 'scale-up':
         return isVisible
           ? 'opacity-100 scale-100'
@@ -70,7 +70,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
       ref={ref}
       id={id}
       style={transitionStyle}
-      className={`${getVariantStyles()} ${className}`}
+      className={`transform-gpu ${getVariantStyles()} ${className}`}
     >
       {children}
     </Component>

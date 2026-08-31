@@ -138,70 +138,70 @@ export const JKANS_CASE_STUDY: CaseStudy = {
   title: 'JKANS FOODS',
   subtitle: 'WHAT IF FOOD COULD FEEL CINEMATIC?',
   summary:
-    'Transforming traditional food advertising into character-driven storytelling. By leveraging AI creative direction, we elevated a local Madurai food brand into a premium, cinematic experience that resonates with cultural nostalgia and high-end aesthetics.',
+    'Transforming traditional food advertising into character-driven storytelling. By combining AI creative direction with Madurai culinary culture, we created a commercial visual series grounded in regional nostalgia and cinematic aesthetic.',
   client: 'JKANS Foods Madurai',
   year: '2025',
   heroImage: JKANS_HERO_IMAGE,
   accentColor: '#D4AF37',
   challenge:
-    'Regional food branding often suffers from repetitive, flat stock imagery that fails to capture the soul and cultural appetite of Tamil Nadu consumers. JKANS Foods needed a landmark visual campaign that would stop social media feeds, spark massive local conversation in Madurai, and establish instant emotional prestige.',
+    'Regional food branding frequently relies on generic stock imagery that fails to capture the cultural appetite of Tamil Nadu consumers. JKANS Foods needed an original visual campaign that would stand out on social media feeds, spark organic conversation in Madurai, and build immediate brand recall.',
   idea:
-    'What if Kollywood cinema giants were the culinary patrons of authentic local dishes? By pairing beloved cinema archetypes with steaming, hyper-detailed signature items (from Thokku Biryani to Flame-charred Butter Naan), we turned everyday food menus into blockbuster cinematic posters.',
+    'What if iconic Kollywood cinema archetypes were the culinary patrons of authentic local dishes? By pairing beloved cinema personalities with steaming signature items (from Thokku Biryani to Butter Naan), we transformed everyday food promotion into cinematic commercial posters.',
   executionSteps: [
     {
       title: 'Character Archetype Architecture',
-      description: 'Defined distinct emotional notes for 7 iconic cinema personalities paired with flavor profiles.',
+      description: 'Established distinct emotional tones and lighting schemes for 7 cinema personalities paired with authentic flavor profiles.',
       tool: 'Prompt Strategy & Narrative Framing'
     },
     {
-      title: 'Hyper-Realistic Food Texture Synthesis',
-      description: 'Used customized Midjourney & FLUX weighting for specular grease, rising aromatic steam, and crispy textures.',
-      tool: 'Midjourney v6.1 + LoRA weights'
+      title: 'Food Texture & Lighting Synthesis',
+      description: 'Engineered prompt weights for specular highlights, rising steam, and appetizing textures using Midjourney v6.1 and FLUX.',
+      tool: 'Midjourney v6.1 + LoRA Tuning'
     },
     {
       title: 'Editorial Typography & Brand Integration',
-      description: 'Engineered sharp brand headers, Tamil cultural hooks, and balanced negative space for social-first delivery.',
-      tool: 'Photoshop & Typography Systems'
+      description: 'Structured clean brand headers, cultural tagline hooks, and balanced negative space for social-first delivery.',
+      tool: 'Photoshop & Typography Layout'
     }
   ],
-  palette: ['#0A0A0A', '#D4AF37', '#E4E2E1', '#8E9192', '#00F5FF'],
+  palette: ['#0A0A0A', '#D4AF37', '#E4E2E1', '#8E9192', '#c4a47c'],
   gallery: JKANS_GALLERY
 };
 
 export const TEMPT_CASE_STUDY: CaseStudy = {
   id: 'tempt',
   number: '02',
-  category: 'AI-POWERED SPORTS CULTURE CAMPAIGN',
+  category: 'SPORTS CULTURE CAMPAIGN',
   title: 'TEMPT GAMING CAFE',
   subtitle: 'ONE DRINK. A WHOLE STADIUM OF ENERGY.',
   summary:
-    'An AI-assisted visual campaign exploring the intersection of football culture, gaming, and social-first brand storytelling.',
+    'An AI-assisted visual campaign exploring the intersection of football fan culture, gaming lounges, and social-first brand storytelling.',
   client: 'Tempt Gaming Cafe & Sports Lounge',
   year: '2025',
   heroImage: TEMPT_HERO_IMAGE,
   accentColor: '#a3e635',
   challenge:
-    "The challenge was to seamlessly integrate the Tempt Gaming Cafe brand into the high-energy, passionate world of football culture. We needed visuals that didn't just show a drink, but placed it at the center of the fan experience.",
+    'The goal was to position Tempt Gaming Cafe inside the high-energy world of football fandom. The brand needed visuals that went beyond standard beverage product photography to place the drink directly at the center of live matchday energy.',
   idea:
-    'The core visual concept uses the iconic bright green Tempt drink as a recurring hero element—a beacon across stadiums, held by fans, and present in iconic sports moments, acting as a visual anchor connecting gaming culture to live sports.',
+    'The core visual concept positions the signature Tempt beverage as a visual beacon across floodlit stadiums—held by supporters, illuminated under arena lights, and anchoring the bridge between gaming culture and live sports fandom.',
   executionSteps: [
     {
       title: 'Stadium Environment Generation',
-      description: 'Synthesized bird-eye floodlit arena views, neon pitch reflections, and electric stadium crowd atmospheres.',
-      tool: 'Midjourney v6.1 + Camera Control'
+      description: 'Generated floodlit arena atmospheres, crowd depth of field, and pitch reflections with wide-angle camera prompts.',
+      tool: 'Midjourney v6.1 + Prompt Engineering'
     },
     {
-      title: 'Signature Asset Anchor',
-      description: 'Maintained exact luminescence and translucent glass aesthetics for the signature acid-green energy blend.',
-      tool: 'ComfyUI ControlNet & Inpainting'
+      title: 'Signature Asset Lighting',
+      description: 'Preserved translucent luminescence and condensation detail on the signature green energy drink asset.',
+      tool: 'ComfyUI Inpainting & Asset Tuning'
     },
     {
-      title: 'Social & Digital Campaign Rollout',
-      description: 'Generated matchday countdown cards, esports tournament banners, and motion teaser storyboards.',
-      tool: 'Prompt Architecture + Motion'
+      title: 'Digital Campaign Assets',
+      description: 'Created matchday countdown creatives, esports tournament banners, and social announcement layouts.',
+      tool: 'Visual Direction & Motion Design'
     }
   ],
-  palette: ['#0A0A0A', '#a3e635', '#00F5FF', '#1B1C1C', '#E4E2E1'],
+  palette: ['#0A0A0A', '#a3e635', '#c4a47c', '#1B1C1C', '#E4E2E1'],
   gallery: []
 };
 
@@ -213,7 +213,7 @@ export const EXPERIENCES: ExperienceItem[] = [
     company: 'JNT Marketing',
     focus: 'AI-powered marketing, branding, visuals',
     description:
-      'Leading generative AI visual pipelines for multi-brand social campaigns, art direction, high-impact marketing collateral, and character-driven commercial storytelling.',
+      'Leading generative AI visual pipelines for multi-brand campaigns, art direction, marketing collateral, and character-driven commercial storytelling.',
     deliverables: ['Campaign Art Direction', 'Brand Strategy Synthesis', 'Generative Concept Decks']
   },
   {
@@ -222,7 +222,7 @@ export const EXPERIENCES: ExperienceItem[] = [
     company: 'Beeyoond Gaming',
     focus: 'Prompt engineering for image/video/text',
     description:
-      'Engineered structured prompting frameworks for gaming asset concepts, stylized environment rendering, motion keyframes, and video generation workflows.',
+      'Engineered structured prompting frameworks for gaming asset concepts, stylized environment rendering, and multimodal video generation workflows.',
     deliverables: ['Custom Prompt Pipelines', 'Asset Style Consistency', 'Video Model Orchestration']
   },
   {
@@ -239,24 +239,24 @@ export const EXPERIENCES: ExperienceItem[] = [
 export const CREATIVE_STACK: StackCategory[] = [
   {
     title: 'Creative Direction',
-    items: ['Concept Generation', 'Visual Strategy', 'Art Direction', 'Cultural Resonance', 'Campaign Architecture'],
-    description: 'Bridging human cultural insight with high-end editorial aesthetics to create memorable brand stories.'
+    items: ['Concept Development', 'Visual Strategy', 'Art Direction', 'Cultural Resonance', 'Campaign Architecture'],
+    description: 'Connecting cultural insight with clean editorial design to build memorable brand campaigns.'
   },
   {
-    title: 'AI Creative',
-    highlightColor: '#00F5FF',
+    title: 'AI Creative & Prompts',
+    highlightColor: '#c4a47c',
     items: ['Prompt Engineering', 'Midjourney v6.1', 'FLUX.1 Pro', 'Stable Diffusion / ComfyUI', 'Runway Gen-3', 'Character Consistency'],
-    description: 'Transforming ideas into precise mathematical prompts with strict lighting, lens, and textural control.'
+    description: 'Structuring precise prompt parameters with controlled lighting, lens simulation, and texture rendering.'
   },
   {
     title: 'Visual & Motion Design',
     items: ['Adobe Photoshop', 'Illustrator', 'Premiere Pro', 'After Effects', 'Spline 3D', 'Editorial Typography'],
-    description: 'Post-generation precision, color grading, typographic layout, and seamless brand cohesion.'
+    description: 'Post-generation refinement, color grading, typographic layout, and overall brand consistency.'
   },
   {
-    title: 'Strategic Growth',
-    items: ['Social-First Distribution', 'B2B Outreach', 'Audience Engagement', 'Brand Positioning', 'Creative Tech Prototyping'],
-    description: 'Ensuring that every aesthetic experiment drives tangible commercial and engagement impact.'
+    title: 'Business & Growth',
+    items: ['B2B Outreach', 'Social-First Distribution', 'Brand Positioning', 'Market Strategy', 'Client Communication'],
+    description: 'Rooting creative experiments in business rationale, lead generation, and measurable brand growth.'
   }
 ];
 

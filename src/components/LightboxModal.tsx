@@ -11,12 +11,21 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    if (!item) return;
+
+    // Lock body scrolling when modal is active
+    document.body.style.overflow = 'hidden';
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [item, onClose]);
 
   if (!item) return null;
 
@@ -31,11 +40,12 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
       id="lightbox-modal-backdrop"
       onClick={onClose}
       className="fixed inset-0 z-50 bg-[#080808]/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-200"
+      style={{ touchAction: 'pan-y' }}
     >
       <div
         id="lightbox-modal-content"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-6xl max-h-[90vh] bg-[#121212] border border-[#222222] flex flex-col lg:flex-row overflow-hidden shadow-2xl"
+        className="relative w-full max-w-6xl max-h-[90vh] max-h-[90dvh] bg-[#121212] border border-[#222222] flex flex-col lg:flex-row overflow-hidden shadow-2xl"
       >
         {/* Close Button */}
         <button
@@ -48,16 +58,19 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
         </button>
 
         {/* Image Preview Container */}
-        <div className="lg:w-3/5 bg-[#080808] flex items-center justify-center p-4 relative overflow-hidden min-h-[350px]">
+        <div className="lg:w-3/5 bg-[#080808] flex items-center justify-center p-4 relative overflow-hidden min-h-[300px] sm:min-h-[350px]">
           <img
             src={item.imageUrl}
             alt={item.title}
-            className="max-h-[75vh] w-auto object-contain"
+            className="max-h-[60vh] lg:max-h-[75vh] w-auto object-contain"
           />
         </div>
 
         {/* Prompt & Metadata Details Drawer */}
-        <div className="lg:w-2/5 p-6 md:p-8 flex flex-col justify-between overflow-y-auto border-t lg:border-t-0 lg:border-l border-[#222222] bg-[#121212]">
+        <div
+          className="lg:w-2/5 p-6 md:p-8 flex flex-col justify-between overflow-y-auto border-t lg:border-t-0 lg:border-l border-[#222222] bg-[#121212]"
+          style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}
+        >
           <div>
             <div className="flex items-center gap-2 font-jetbrains text-xs text-[#c4a47c] uppercase mb-2 tracking-wider">
               <span>{item.characterOrStar}</span>
