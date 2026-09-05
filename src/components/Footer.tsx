@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewType } from '../types';
-import { ArrowUp, Mail, Phone, MessageSquare } from 'lucide-react';
+import { ArrowUp, Mail, Phone, MessageSquare, Linkedin } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (view: ViewType) => void;
@@ -11,15 +11,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const recipientEmail = 'matheshaks007@gmail.com';
-  const phone = '+919360293974';
-  const displayPhone = '+91 93602 93974';
+  const recipientEmail = 'mathesh.aks@gmail.com';
+  const phone = '+919789611569';
+  const displayPhone = '+91 97896 11569';
+  const linkedInUrl = 'https://www.linkedin.com/in/mathesh-a-k-s-1333241b9';
+  const whatsAppUrl = 'https://wa.me/919789611569';
 
   const handleWhatsAppClick = () => {
-    const text = encodeURIComponent(
-      `Hi Mathesh, I'm reaching out through your portfolio regarding an AI Creative / Brand Strategy project!`
-    );
-    window.open(`https://wa.me/919360293974?text=${text}`, '_blank');
+    window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -158,13 +157,26 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </a>
               </li>
               <li>
-                <button
-                  onClick={handleWhatsAppClick}
-                  className="inline-flex items-center gap-2 text-[#5c5950] hover:text-[#141414] transition-colors cursor-pointer"
+                <a
+                  href={whatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#5c5950] hover:text-[#141414] transition-colors"
                 >
                   <MessageSquare size={13} className="text-[#6b654c]" />
-                  <span>WhatsApp Direct Chat</span>
-                </button>
+                  <span>WhatsApp Direct ({displayPhone})</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={linkedInUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#5c5950] hover:text-[#141414] transition-colors"
+                >
+                  <Linkedin size={13} className="text-[#6b654c]" />
+                  <span>LinkedIn Profile</span>
+                </a>
               </li>
             </ul>
           </div>

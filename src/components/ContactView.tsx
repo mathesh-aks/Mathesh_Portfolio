@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { ViewType, ProjectScope } from '../types';
-import { Mail, MessageSquare, Copy, Check, MapPin, Phone, ArrowRight, AlertCircle, RefreshCw } from 'lucide-react';
+import { Mail, MessageSquare, Copy, Check, MapPin, Phone, ArrowRight, Linkedin, AlertCircle, RefreshCw } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 
 interface ContactViewProps {
@@ -60,10 +60,11 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
   const scopeSelectRef = useRef<HTMLSelectElement>(null);
   const detailsTextareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const recipientEmail = 'matheshaks007@gmail.com';
-  const phone = '+919360293974';
-  const displayPhone = '+91 93602 93974';
+  const recipientEmail = 'mathesh.aks@gmail.com';
+  const phone = '+919789611569';
+  const displayPhone = '+91 97896 11569';
   const linkedInUrl = 'https://www.linkedin.com/in/mathesh-a-k-s-1333241b9';
+  const whatsAppUrl = 'https://wa.me/919789611569';
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(recipientEmail);
@@ -78,10 +79,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
   };
 
   const handleWhatsAppClick = () => {
-    const text = encodeURIComponent(
-      `Hi Mathesh, I'm reaching out through your portfolio regarding an AI Creative / Brand Strategy project!`
-    );
-    window.open(`https://wa.me/919360293974?text=${text}`, '_blank');
+    window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
   };
 
   // Client-side validation
@@ -194,7 +192,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
     } catch (err: any) {
       console.error('Contact submission error:', err);
       setSubmitError(
-        err.message || 'Your message could not be sent right now. Please email matheshaks007@gmail.com directly.'
+        err.message || 'Your message could not be sent right now. Please email mathesh.aks@gmail.com directly.'
       );
     } finally {
       setIsSubmitting(false);
@@ -267,7 +265,7 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
                       </span>
                       <a
                         href={`mailto:${recipientEmail}`}
-                        className="font-jetbrains text-xs sm:text-sm text-[#141414] hover:text-[#6b654c] transition-colors font-medium"
+                        className="font-jetbrains text-xs sm:text-sm text-[#141414] hover:text-[#6b654c] transition-colors font-medium break-all"
                       >
                         {recipientEmail}
                       </a>
@@ -312,9 +310,11 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
                 </div>
 
                 {/* WhatsApp Quick Connect */}
-                <div
-                  onClick={handleWhatsAppClick}
-                  className="p-4 bg-[#ffffff] border border-[#e5e2da] flex items-center justify-between group hover:border-[#dad6cc] transition-colors cursor-pointer shadow-sm"
+                <a
+                  href={whatsAppUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 bg-[#ffffff] border border-[#e5e2da] flex items-center justify-between group hover:border-[#dad6cc] transition-colors shadow-sm"
                 >
                   <div className="flex items-center gap-3">
                     <div className="p-2.5 bg-[#f4f2eb] border border-[#e5e2da] text-[#6b654c]">
@@ -322,16 +322,40 @@ export const ContactView: React.FC<ContactViewProps> = ({ onNavigate: _onNavigat
                     </div>
                     <div>
                       <span className="font-jetbrains text-[10px] text-[#827e74] uppercase tracking-wider block">
-                        Instant Messaging
+                        Instant Messaging (WhatsApp)
                       </span>
                       <span className="font-jetbrains text-xs sm:text-sm text-[#141414] group-hover:text-[#6b654c] transition-colors font-medium">
-                        Connect on WhatsApp
+                        Chat on WhatsApp ({displayPhone})
                       </span>
                     </div>
                   </div>
 
                   <ArrowRight size={16} className="text-[#827e74] group-hover:translate-x-1 transition-transform" />
-                </div>
+                </a>
+
+                {/* LinkedIn Profile */}
+                <a
+                  href={linkedInUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 bg-[#ffffff] border border-[#e5e2da] flex items-center justify-between group hover:border-[#dad6cc] transition-colors shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-[#f4f2eb] border border-[#e5e2da] text-[#6b654c]">
+                      <Linkedin size={16} />
+                    </div>
+                    <div>
+                      <span className="font-jetbrains text-[10px] text-[#827e74] uppercase tracking-wider block">
+                        Professional Network
+                      </span>
+                      <span className="font-jetbrains text-xs sm:text-sm text-[#141414] group-hover:text-[#6b654c] transition-colors font-medium break-all">
+                        linkedin.com/in/mathesh-a-k-s-1333241b9
+                      </span>
+                    </div>
+                  </div>
+
+                  <ArrowRight size={16} className="text-[#827e74] group-hover:translate-x-1 transition-transform" />
+                </a>
               </div>
             </ScrollReveal>
 
