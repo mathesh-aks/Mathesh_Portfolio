@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ViewType } from '../types';
 import { JKANS_HERO_IMAGE, TEMPT_HERO_IMAGE } from '../data/portfolioData';
-import { ArrowRight, Sparkles, Filter } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { ScrollReveal } from './ScrollReveal';
 
 interface WorkViewProps {
@@ -12,17 +12,17 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
   const [filter, setFilter] = useState<'all' | 'campaign' | 'sports'>('all');
 
   return (
-    <div id="work-view-container" className="w-full pt-[80px] pb-20 px-5 md:px-20 bg-[#080808] text-[#e5e5e5]">
+    <div id="work-view-container" className="w-full pt-[75px] pb-20 px-5 md:px-20 bg-[#fbfbf9] text-[#141414]">
       <div className="max-w-[1920px] mx-auto">
         {/* Header */}
         <ScrollReveal variant="fade-up">
-          <div className="mb-10 md:mb-12 border-b border-[#222222] pb-6 md:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="mb-10 md:mb-12 border-b border-[#e5e2da] pb-6 md:pb-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-2.5">
+              <span className="font-jetbrains text-xs text-[#6b654c] uppercase tracking-[0.25em] block mb-2.5 font-semibold">
                 SELECTED PORTFOLIO // 2025 — 2026
               </span>
-              <h1 className="font-syne text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#e5e5e5]">
-                COMMERCIAL &amp; <span className="font-serif italic font-normal text-[#c4a47c]">CULTURAL</span> WORKS
+              <h1 className="font-syne text-3xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-[#141414]">
+                COMMERCIAL &amp; <span className="font-serif italic font-normal text-[#6b654c]">CULTURAL</span> WORKS
               </h1>
             </div>
 
@@ -32,8 +32,8 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                 onClick={() => setFilter('all')}
                 className={`px-3.5 py-1.5 font-jetbrains text-xs uppercase tracking-wider transition-all cursor-pointer border ${
                   filter === 'all'
-                    ? 'border-[#c4a47c] text-[#c4a47c] bg-[#c4a47c]/10 font-semibold'
-                    : 'border-[#222222] text-[#888888] hover:text-[#e5e5e5]'
+                    ? 'border-[#141414] text-[#ffffff] bg-[#141414] font-semibold'
+                    : 'border-[#e5e2da] text-[#5c5950] bg-[#ffffff] hover:text-[#141414]'
                 }`}
               >
                 All Projects
@@ -42,8 +42,8 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                 onClick={() => setFilter('campaign')}
                 className={`px-3.5 py-1.5 font-jetbrains text-xs uppercase tracking-wider transition-all cursor-pointer border ${
                   filter === 'campaign'
-                    ? 'border-[#c4a47c] text-[#c4a47c] bg-[#c4a47c]/10 font-semibold'
-                    : 'border-[#222222] text-[#888888] hover:text-[#e5e5e5]'
+                    ? 'border-[#141414] text-[#ffffff] bg-[#141414] font-semibold'
+                    : 'border-[#e5e2da] text-[#5c5950] bg-[#ffffff] hover:text-[#141414]'
                 }`}
               >
                 Food &amp; Cinema
@@ -52,8 +52,8 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                 onClick={() => setFilter('sports')}
                 className={`px-3.5 py-1.5 font-jetbrains text-xs uppercase tracking-wider transition-all cursor-pointer border ${
                   filter === 'sports'
-                    ? 'border-[#c4a47c] text-[#c4a47c] bg-[#c4a47c]/10 font-semibold'
-                    : 'border-[#222222] text-[#888888] hover:text-[#e5e5e5]'
+                    ? 'border-[#141414] text-[#ffffff] bg-[#141414] font-semibold'
+                    : 'border-[#e5e2da] text-[#5c5950] bg-[#ffffff] hover:text-[#141414]'
                 }`}
               >
                 Sports &amp; Gaming
@@ -73,52 +73,44 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                   onNavigate('jkans');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="border border-[#222222] bg-[#121212] hover:bg-[#161616] hover:border-[#c4a47c]/50 transition-all duration-300 group cursor-pointer overflow-hidden p-6 md:p-8 relative"
+                className="border border-[#e5e2da] bg-[#ffffff] hover:border-[#dad6cc] transition-all duration-300 group cursor-pointer overflow-hidden p-6 md:p-8 relative shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_35px_rgba(0,0,0,0.06)]"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                  <div className="lg:col-span-7 aspect-[16/9] relative overflow-hidden border border-[#222222]">
+                  <div className="lg:col-span-7 aspect-[16/9] relative overflow-hidden border border-[#e5e2da] bg-[#f4f2eb]">
                     <img
                       src={JKANS_HERO_IMAGE}
                       alt="JKANS Foods AI Campaign"
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                      referrerPolicy="no-referrer"
                     />
-                    <div className="absolute top-3 left-3 font-jetbrains text-[10px] bg-[#080808]/90 px-2.5 py-1 border border-[#222222] text-[#c4a47c]">
+                    <div className="absolute top-3 left-3 font-jetbrains text-[10px] bg-[#ffffff]/95 backdrop-blur-sm px-2.5 py-1 border border-[#e5e2da] text-[#141414] font-semibold">
                       01 // COMMERCIAL CAMPAIGN
                     </div>
                   </div>
 
                   <div className="lg:col-span-5 flex flex-col justify-between h-full">
                     <div>
-                      <div className="flex items-center gap-2 font-jetbrains text-xs text-[#c4a47c] uppercase mb-2.5 tracking-wider">
+                      <div className="flex items-center gap-2 font-jetbrains text-xs text-[#6b654c] uppercase mb-2.5 tracking-wider font-semibold">
                         <span>AI Creative Direction</span>
-                        <span className="text-[#666666]">●</span>
-                        <span className="text-[#888888]">2025</span>
+                        <span className="text-[#dad6cc]">●</span>
+                        <span className="text-[#827e74]">2025</span>
                       </div>
 
-                      <h2 className="font-syne text-2xl sm:text-3xl font-bold uppercase tracking-tight text-[#e5e5e5] group-hover:text-[#c4a47c] transition-colors mb-3">
+                      <h2 className="font-syne text-2xl sm:text-3xl font-bold uppercase tracking-tight text-[#141414] group-hover:text-[#6b654c] transition-colors mb-3">
                         JKANS FOODS
                       </h2>
 
-                      <p className="font-grotesk text-sm sm:text-base text-[#888888] leading-relaxed mb-5">
-                        Character-driven visual advertising combining iconic Kollywood cinema archetypes with authentic Madurai culinary dishes across 7 hero visual posters.
+                      <p className="font-grotesk text-sm sm:text-base text-[#5c5950] leading-relaxed mb-6">
+                        Character-driven visual advertising at the intersection of Kollywood cinema archetypes and authentic Madurai culinary culture. 7 distinct poster compositions with full prompt engineering metadata.
                       </p>
-
-                      <div className="flex flex-wrap gap-1.5 mb-6">
-                        <span className="font-jetbrains text-[10px] px-2.5 py-0.5 bg-[#080808] border border-[#222222] text-[#888888]">
-                          Midjourney v6.1
-                        </span>
-                        <span className="font-jetbrains text-[10px] px-2.5 py-0.5 bg-[#080808] border border-[#222222] text-[#888888]">
-                          LoRA Tuning
-                        </span>
-                        <span className="font-jetbrains text-[10px] px-2.5 py-0.5 bg-[#080808] border border-[#222222] text-[#888888]">
-                          Character Consistency
-                        </span>
-                      </div>
                     </div>
 
-                    <div className="inline-flex items-center gap-2 font-jetbrains text-xs text-[#c4a47c] uppercase tracking-wider group-hover:translate-x-1 transition-transform font-semibold">
-                      <span>EXPLORE CASE STUDY</span>
-                      <ArrowRight size={14} />
+                    <div className="pt-4 border-t border-[#e5e2da] flex items-center justify-between font-jetbrains text-xs">
+                      <span className="text-[#827e74]">Food &amp; Cinema</span>
+                      <span className="text-[#141414] inline-flex items-center gap-2 group-hover:translate-x-1 transition-transform font-bold">
+                        <span>VIEW FULL CASE STUDY</span>
+                        <ArrowRight size={14} className="text-[#6b654c]" />
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -135,52 +127,44 @@ export const WorkView: React.FC<WorkViewProps> = ({ onNavigate }) => {
                   onNavigate('tempt');
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="border border-[#222222] bg-[#121212] hover:bg-[#161616] hover:border-[#c4a47c]/50 transition-all duration-300 group cursor-pointer overflow-hidden p-6 md:p-8 relative"
+                className="border border-[#e5e2da] bg-[#ffffff] hover:border-[#dad6cc] transition-all duration-300 group cursor-pointer overflow-hidden p-6 md:p-8 relative shadow-[0_2px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_35px_rgba(0,0,0,0.06)]"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                  <div className="lg:col-span-7 aspect-[16/9] relative overflow-hidden border border-[#222222]">
+                  <div className="lg:col-span-7 aspect-[16/9] relative overflow-hidden border border-[#e5e2da] bg-[#f4f2eb]">
                     <img
                       src={TEMPT_HERO_IMAGE}
                       alt="Tempt Gaming Cafe Campaign"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      referrerPolicy="no-referrer"
                     />
-                    <div className="absolute top-3 left-3 font-jetbrains text-[10px] bg-[#080808]/90 px-2.5 py-1 border border-[#222222] text-[#c4a47c]">
-                      02 // SPORTS CULTURE
+                    <div className="absolute top-3 left-3 font-jetbrains text-[10px] bg-[#ffffff]/95 backdrop-blur-sm px-2.5 py-1 border border-[#e5e2da] text-[#141414] font-semibold">
+                      02 // SPORTS CULTURE CAMPAIGN
                     </div>
                   </div>
 
                   <div className="lg:col-span-5 flex flex-col justify-between h-full">
                     <div>
-                      <div className="flex items-center gap-2 font-jetbrains text-xs text-[#c4a47c] uppercase mb-2.5 tracking-wider">
-                        <span>Sports Culture &amp; Branding</span>
-                        <span className="text-[#666666]">●</span>
-                        <span className="text-[#888888]">2025</span>
+                      <div className="flex items-center gap-2 font-jetbrains text-xs text-[#6b654c] uppercase mb-2.5 tracking-wider font-semibold">
+                        <span>Sports Culture Campaign</span>
+                        <span className="text-[#dad6cc]">●</span>
+                        <span className="text-[#827e74]">2025</span>
                       </div>
 
-                      <h2 className="font-syne text-2xl sm:text-3xl font-bold uppercase tracking-tight text-[#e5e5e5] group-hover:text-[#c4a47c] transition-colors mb-3">
+                      <h2 className="font-syne text-2xl sm:text-3xl font-bold uppercase tracking-tight text-[#141414] group-hover:text-[#6b654c] transition-colors mb-3">
                         TEMPT GAMING CAFE
                       </h2>
 
-                      <p className="font-grotesk text-sm sm:text-base text-[#888888] leading-relaxed mb-5">
-                        An AI-assisted visual campaign exploring the intersection of stadium football culture, gaming lounges, and signature amber luminescence.
+                      <p className="font-grotesk text-sm sm:text-base text-[#5c5950] leading-relaxed mb-6">
+                        An AI-assisted visual campaign exploring football culture, gaming intensity, and stadium atmosphere. Volumetric lighting and condensation physics crafted with FLUX.1 Pro and Midjourney.
                       </p>
-
-                      <div className="flex flex-wrap gap-1.5 mb-6">
-                        <span className="font-jetbrains text-[10px] px-2.5 py-0.5 bg-[#080808] border border-[#222222] text-[#888888]">
-                          FLUX.1 Pro
-                        </span>
-                        <span className="font-jetbrains text-[10px] px-2.5 py-0.5 bg-[#080808] border border-[#222222] text-[#888888]">
-                          Atmospheric Lighting
-                        </span>
-                        <span className="font-jetbrains text-[10px] px-2.5 py-0.5 bg-[#080808] border border-[#222222] text-[#888888]">
-                          Color Grading
-                        </span>
-                      </div>
                     </div>
 
-                    <div className="inline-flex items-center gap-2 font-jetbrains text-xs text-[#c4a47c] uppercase tracking-wider group-hover:translate-x-1 transition-transform font-semibold">
-                      <span>EXPLORE CASE STUDY</span>
-                      <ArrowRight size={14} />
+                    <div className="pt-4 border-t border-[#e5e2da] flex items-center justify-between font-jetbrains text-xs">
+                      <span className="text-[#827e74]">Sports &amp; Gaming</span>
+                      <span className="text-[#141414] inline-flex items-center gap-2 group-hover:translate-x-1 transition-transform font-bold">
+                        <span>VIEW FULL CASE STUDY</span>
+                        <ArrowRight size={14} className="text-[#6b654c]" />
+                      </span>
                     </div>
                   </div>
                 </div>

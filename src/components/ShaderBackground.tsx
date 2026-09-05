@@ -9,210 +9,115 @@ export const ShaderBackground: React.FC = () => {
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    let isVisible = true;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
     let animationFrameId: number;
+    let isVisible = true;
+    let width = (canvas.width = container.clientWidth);
+    let height = (canvas.height = container.clientHeight);
 
-    const gl = canvas.getContext('webgl', { powerPreference: 'low-power' }) ||
-      canvas.getContext('experimental-webgl');
+    const handleResize = () => {
+      if (!container || !canvas) return;
+      width = canvas.width = container.clientWidth;
+      height = canvas.height = container.clientHeight;
+      drawEditorialCanvas();
+    };
 
-    // Check for reduced motion preference
+    const observer = new ResizeObserver(handleResize);
+    observer.observe(container);
+
+    let t = 0;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!gl) {
-      // Fallback 2D canvas if WebGL is unavailable
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-      let t = 0;
-      const render2D = () => {
-        if (!isVisible) return;
-        t += 0.01;
-        ctx.fillStyle = '#080808';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = 'rgba(196, 164, 124, 0.04)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        for (let i = 0; i < canvas.width; i += 40) {
-          ctx.moveTo(i, 0);
-          ctx.lineTo(i, canvas.height);
-        }
-        for (let j = 0; j < canvas.height; j += 40) {
-          ctx.moveTo(0, j);
-          ctx.lineTo(canvas.width, j);
-        }
-        ctx.stroke();
-        if (!prefersReducedMotion) {
-          animationFrameId = requestAnimationFrame(render2D);
-        }
-      };
+    const drawEditorialCanvas = () => {
+      ctx.clearRect(0, 0, width, height);
 
-      render2D();
-      return () => cancelAnimationFrame(animationFrameId);
-    }
+      // Base warm editorial background
+      const baseGrad = ctx.createLinearGradient(0, 0, width, height);
+      baseGrad.addColorStop(0, '#fbfbf9');
+      baseGrad.addColorStop(0.5, '#faf9f5');
+      baseGrad.addColorStop(1, '#f3efe6');
+      ctx.fillStyle = baseGrad;
+      ctx.fillRect(0, 0, width, height);
 
-    const vs = `
-      attribute vec2 a_position;
-      varying vec2 v_texCoord;
-      void main() {
-        v_texCoord = a_position * 0.5 + 0.5;
-        gl_Position = vec4(a_position, 0.0, 1.0);
-      }
-    `;
-
-    const fs = `
-      precision mediump float;
-      varying vec2 v_texCoord;
-      uniform float u_time;
-      uniform vec2 u_resolution;
-      uniform vec2 u_mouse;
-
-      void main() {
-        vec2 uv = v_texCoord;
-        vec2 mouse = u_mouse / u_resolution;
-        
-        // Slow organic movement
-        float t = u_time * 0.15;
-        
-        // Warm gold intelligence field radius around mouse
-        float d = length(uv - mouse);
-        float glow = smoothstep(0.45, 0.0, d) * 0.22;
-        
-        // Flowing dark silk waves
-        float wave = sin(uv.y * 3.5 + t) * cos(uv.x * 2.5 - t * 0.4) * 0.05;
-        float alpha = smoothstep(0.1, 0.5, abs(uv.y - 0.5 + wave));
-        
-        vec3 baseColor = vec3(0.031, 0.031, 0.031); // Obsidian #080808
-        vec3 accentColor = vec3(0.768, 0.643, 0.486); // Warm antique champagne gold #c4a47c
-        
-        vec3 finalColor = mix(baseColor, accentColor * 0.25, glow);
-        finalColor += (1.0 - alpha) * 0.02; // Subtle depth lines
-        
-        gl_FragColor = vec4(finalColor, 1.0);
-      }
-    `;
-
-    function compileShader(type: number, src: string) {
-      if (!gl) return null;
-      const s = gl.createShader(type);
-      if (!s) return null;
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      return s;
-    }
-
-    const vertShader = compileShader(gl.VERTEX_SHADER, vs);
-    const fragShader = compileShader(gl.FRAGMENT_SHADER, fs);
-    if (!vertShader || !fragShader) return;
-
-    const prog = gl.createProgram();
-    if (!prog) return;
-    gl.attachShader(prog, vertShader);
-    gl.attachShader(prog, fragShader);
-    gl.linkProgram(prog);
-    gl.useProgram(prog);
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
-      gl.STATIC_DRAW
-    );
-
-    const pos = gl.getAttribLocation(prog, 'a_position');
-    gl.enableVertexAttribArray(pos);
-    gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
-
-    const uTime = gl.getUniformLocation(prog, 'u_time');
-    const uRes = gl.getUniformLocation(prog, 'u_resolution');
-    const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-
-    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!canvas || !isVisible) return;
-      const rect = canvas.getBoundingClientRect();
-      if (rect.width && rect.height) {
-        const nx = (event.clientX - rect.left) / rect.width;
-        const ny = 1.0 - (event.clientY - rect.top) / rect.height;
-        mouse.x = nx * canvas.width;
-        mouse.y = ny * canvas.height;
-      }
-    };
-
-    // Passive touch handler that never calls preventDefault or blocks scroll
-    const handleTouchMove = (event: TouchEvent) => {
-      if (!canvas || !isVisible || !event.touches[0]) return;
-      const touch = event.touches[0];
-      const rect = canvas.getBoundingClientRect();
-      if (rect.width && rect.height) {
-        const nx = (touch.clientX - rect.left) / rect.width;
-        const ny = 1.0 - (touch.clientY - rect.top) / rect.height;
-        mouse.x = nx * canvas.width;
-        mouse.y = ny * canvas.height;
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-
-    const syncSize = () => {
-      if (!canvas) return;
-      // Cap devicePixelRatio to 1.5 on high-DPI mobile screens to save GPU
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      const w = Math.floor((canvas.clientWidth || window.innerWidth) * dpr);
-      const h = Math.floor((canvas.clientHeight || window.innerHeight) * dpr);
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-      }
-    };
-
-    syncSize();
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== 'undefined') {
-      resizeObserver = new ResizeObserver(syncSize);
-      resizeObserver.observe(canvas);
-    }
-
-    const render = (t: number) => {
-      if (!isVisible) return;
-      syncSize();
-      gl.viewport(0, 0, canvas.width, canvas.height);
-      if (uTime) gl.uniform1f(uTime, t * 0.001);
-      if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
-      if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      if (!prefersReducedMotion) {
-        animationFrameId = requestAnimationFrame(render);
-      }
-    };
-
-    // Render initial frame
-    animationFrameId = requestAnimationFrame(render);
-
-    // Pause WebGL rendering loop when hero is scrolled out of viewport to free mobile/tablet CPU & GPU
-    let visibilityObserver: IntersectionObserver | null = null;
-    if ('IntersectionObserver' in window) {
-      visibilityObserver = new IntersectionObserver(
-        ([entry]) => {
-          const wasVisible = isVisible;
-          isVisible = entry.isIntersecting;
-          if (isVisible && !wasVisible && !prefersReducedMotion) {
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = requestAnimationFrame(render);
-          }
-        },
-        { threshold: 0 }
+      // Very subtle radial light warmth from top-left (ambient editorial illumination)
+      const radGrad = ctx.createRadialGradient(
+        width * 0.25,
+        height * 0.2,
+        20,
+        width * 0.25,
+        height * 0.2,
+        Math.max(width, height) * 0.7
       );
-      visibilityObserver.observe(container);
+      radGrad.addColorStop(0, 'rgba(255, 255, 255, 0.85)');
+      radGrad.addColorStop(0.6, 'rgba(247, 244, 237, 0.4)');
+      radGrad.addColorStop(1, 'rgba(241, 237, 227, 0)');
+      ctx.fillStyle = radGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Subtle editorial grid lines (fine 1px lines spaced 90px apart, ultra-low opacity)
+      ctx.strokeStyle = 'rgba(107, 101, 76, 0.035)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      const gridSize = 90;
+      for (let x = 0; x < width; x += gridSize) {
+        ctx.moveTo(x + 0.5, 0);
+        ctx.lineTo(x + 0.5, height);
+      }
+      for (let y = 0; y < height; y += gridSize) {
+        ctx.moveTo(0, y + 0.5);
+        ctx.lineTo(width, y + 0.5);
+      }
+      ctx.stroke();
+
+      // Subtle slow harmonic editorial light drift
+      if (!prefersReducedMotion) {
+        const xOffset = Math.sin(t * 0.0005) * 80;
+        const yOffset = Math.cos(t * 0.0004) * 60;
+        const driftGrad = ctx.createRadialGradient(
+          width * 0.75 + xOffset,
+          height * 0.6 + yOffset,
+          10,
+          width * 0.75 + xOffset,
+          height * 0.6 + yOffset,
+          width * 0.5
+        );
+        driftGrad.addColorStop(0, 'rgba(196, 164, 124, 0.025)');
+        driftGrad.addColorStop(1, 'rgba(251, 251, 249, 0)');
+        ctx.fillStyle = driftGrad;
+        ctx.fillRect(0, 0, width, height);
+      }
+    };
+
+    const animate = () => {
+      if (!isVisible) return;
+      t++;
+      if (!prefersReducedMotion) {
+        drawEditorialCanvas();
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    drawEditorialCanvas();
+    if (!prefersReducedMotion) {
+      animationFrameId = requestAnimationFrame(animate);
     }
+
+    const handleVisibilityChange = () => {
+      isVisible = !document.hidden;
+      if (isVisible && !prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
-      if (resizeObserver) resizeObserver.disconnect();
-      if (visibilityObserver) visibilityObserver.disconnect();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -220,16 +125,10 @@ export const ShaderBackground: React.FC = () => {
   return (
     <div
       ref={containerRef}
-      id="webgl-shader-container"
-      className="absolute inset-0 w-full h-full z-0 opacity-45 mix-blend-screen pointer-events-none overflow-hidden touch-none"
-      style={{ touchAction: 'auto', pointerEvents: 'none' }}
+      className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
+      aria-hidden="true"
     >
-      <canvas
-        ref={canvasRef}
-        id="shader-canvas"
-        className="w-full h-full block pointer-events-none"
-      />
+      <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
   );
 };
-

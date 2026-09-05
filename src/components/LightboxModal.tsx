@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GalleryItem } from '../types';
-import { X, Copy, Check, Eye, Sliders, ExternalLink } from 'lucide-react';
+import { X, Copy, Check } from 'lucide-react';
 
 interface LightboxModalProps {
   item: GalleryItem | null;
@@ -39,81 +39,88 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
     <div
       id="lightbox-modal-backdrop"
       onClick={onClose}
-      className="fixed inset-0 z-50 bg-[#080808]/95 backdrop-blur-md flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 bg-[#141414]/80 backdrop-blur-sm flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-200"
       style={{ touchAction: 'pan-y' }}
     >
       <div
         id="lightbox-modal-content"
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-6xl max-h-[90vh] max-h-[90dvh] bg-[#121212] border border-[#222222] flex flex-col lg:flex-row overflow-hidden shadow-2xl"
+        className="relative w-full max-w-6xl max-h-[90vh] max-h-[90dvh] bg-[#ffffff] border border-[#dad6cc] flex flex-col lg:flex-row overflow-hidden shadow-2xl"
       >
         {/* Close Button */}
         <button
           id="lightbox-close-btn"
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 p-2 bg-[#080808]/90 border border-[#222222] text-[#e5e5e5] hover:text-[#c4a47c] hover:border-[#c4a47c] transition-colors cursor-pointer"
+          className="absolute top-4 right-4 z-30 p-2 bg-[#ffffff] border border-[#e5e2da] text-[#141414] hover:bg-[#141414] hover:text-[#ffffff] transition-colors cursor-pointer shadow-sm"
           aria-label="Close modal"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
         {/* Image Preview Container */}
-        <div className="lg:w-3/5 bg-[#080808] flex items-center justify-center p-4 relative overflow-hidden min-h-[300px] sm:min-h-[350px]">
+        <div className="lg:w-3/5 bg-[#f4f2eb] flex items-center justify-center p-6 relative overflow-hidden min-h-[300px] sm:min-h-[350px]">
           <img
             src={item.imageUrl}
             alt={item.title}
-            className="max-h-[60vh] lg:max-h-[75vh] w-auto object-contain"
+            className="max-h-[60vh] lg:max-h-[75vh] w-auto object-contain shadow-md"
+            referrerPolicy="no-referrer"
           />
         </div>
 
         {/* Prompt & Metadata Details Drawer */}
         <div
-          className="lg:w-2/5 p-6 md:p-8 flex flex-col justify-between overflow-y-auto border-t lg:border-t-0 lg:border-l border-[#222222] bg-[#121212]"
+          className="lg:w-2/5 p-6 md:p-8 flex flex-col justify-between overflow-y-auto border-t lg:border-t-0 lg:border-l border-[#e5e2da] bg-[#ffffff]"
           style={{ overscrollBehavior: 'contain', WebkitOverflowScrolling: 'touch' }}
         >
           <div>
-            <div className="flex items-center gap-2 font-jetbrains text-xs text-[#c4a47c] uppercase mb-2 tracking-wider">
+            <div className="flex items-center gap-2 font-jetbrains text-xs text-[#6b654c] uppercase mb-2 tracking-wider font-semibold">
               <span>{item.characterOrStar}</span>
-              <span className="text-[#666666]">●</span>
-              <span className="text-[#888888]">{item.promptMetadata.aspectRatio}</span>
+              <span className="text-[#dad6cc]">●</span>
+              <span className="text-[#827e74]">{item.promptMetadata.aspectRatio}</span>
             </div>
 
-            <h3 className="font-syne text-2xl font-bold text-[#e5e5e5] mb-2">{item.title}</h3>
+            <h3 className="font-syne text-2xl font-bold text-[#141414] mb-2">{item.title}</h3>
 
-            <div className="font-grotesk text-sm text-[#c4a47c] font-semibold mb-6">
-              Dish: {item.dishName}
+            <div className="font-grotesk text-sm text-[#6b654c] font-semibold mb-6">
+              Featured Dish: {item.dishName}
             </div>
 
             {/* Prompt Section */}
             <div className="mb-6">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-jetbrains text-[10px] text-[#888888] uppercase tracking-wider">
+                <span className="font-jetbrains text-[10px] text-[#827e74] uppercase tracking-wider font-semibold">
                   SYNTHESIZED AI PROMPT
                 </span>
-                <span className="font-jetbrains text-[10px] text-[#c4a47c] border border-[#c4a47c]/30 px-1.5 py-0.5">
+                <span className="font-jetbrains text-[10px] text-[#141414] border border-[#e5e2da] bg-[#f4f2eb] px-2 py-0.5 font-medium">
                   {item.promptMetadata.model}
                 </span>
               </div>
 
-              <div className="bg-[#080808] p-3.5 border border-[#222222] font-jetbrains text-xs text-[#c4c7c7] leading-relaxed">
+              <div className="bg-[#f4f2eb] p-4 border border-[#e5e2da] font-jetbrains text-xs text-[#141414] leading-relaxed">
                 {item.promptMetadata.corePrompt}
               </div>
             </div>
 
-            {/* Technical Specs */}
-            <div className="space-y-2.5 font-jetbrains text-xs text-[#888888] mb-6">
+            {/* Prompt Modifiers & Lighting */}
+            <div className="space-y-4">
               <div>
-                <span className="text-[#e5e5e5] block text-[10px] uppercase tracking-wider">Lighting Setup:</span>
-                <span className="text-[#c4c7c7]">{item.promptMetadata.lighting}</span>
+                <span className="font-jetbrains text-[10px] text-[#827e74] uppercase tracking-wider block mb-1 font-semibold">
+                  Lighting &amp; Volumetrics
+                </span>
+                <p className="font-grotesk text-xs text-[#5c5950] bg-[#fbfbf9] p-2.5 border border-[#e5e2da]">
+                  {item.promptMetadata.lighting}
+                </p>
               </div>
 
               <div>
-                <span className="text-[#e5e5e5] block text-[10px] uppercase tracking-wider">Key Style Modifiers:</span>
-                <div className="flex flex-wrap gap-1 mt-1">
+                <span className="font-jetbrains text-[10px] text-[#827e74] uppercase tracking-wider block mb-2 font-semibold">
+                  Style Keywords
+                </span>
+                <div className="flex flex-wrap gap-1.5">
                   {item.promptMetadata.styleKeywords.map((kw, i) => (
                     <span
                       key={i}
-                      className="px-2 py-0.5 bg-[#080808] border border-[#222222] text-[10px] text-[#888888]"
+                      className="font-jetbrains text-[10px] px-2 py-1 bg-[#f4f2eb] border border-[#e5e2da] text-[#5c5950]"
                     >
                       {kw}
                     </span>
@@ -123,16 +130,16 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
             </div>
           </div>
 
-          {/* Action Button */}
-          <div className="pt-4 border-t border-[#222222]">
+          {/* Action Footer */}
+          <div className="pt-6 mt-6 border-t border-[#e5e2da] flex items-center justify-between">
             <button
               onClick={handleCopyPrompt}
-              className="w-full inline-flex items-center justify-center gap-2 py-3 bg-transparent border border-[#c4a47c] text-[#c4a47c] font-jetbrains text-xs uppercase tracking-widest hover:bg-[#c4a47c] hover:text-[#080808] transition-all cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 py-3 bg-[#141414] text-[#ffffff] font-jetbrains text-xs uppercase tracking-wider hover:bg-[#33302a] transition-all cursor-pointer font-semibold shadow-sm"
             >
               {copied ? (
                 <>
                   <Check size={14} />
-                  <span>PROMPT COPIED TO CLIPBOARD</span>
+                  <span>PROMPT FORMULA COPIED</span>
                 </>
               ) : (
                 <>

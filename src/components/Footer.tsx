@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewType } from '../types';
-import { ArrowUp, Sparkles, Mail, MessageSquare } from 'lucide-react';
+import { ArrowUp, Mail, Phone, MessageSquare } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (view: ViewType) => void;
@@ -11,24 +11,42 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const recipientEmail = 'matheshaks007@gmail.com';
+  const phone = '+919360293974';
+  const displayPhone = '+91 93602 93974';
+
+  const handleWhatsAppClick = () => {
+    const text = encodeURIComponent(
+      `Hi Mathesh, I'm reaching out through your portfolio regarding an AI Creative / Brand Strategy project!`
+    );
+    window.open(`https://wa.me/919360293974?text=${text}`, '_blank');
+  };
+
   return (
-    <footer id="main-footer" className="w-full bg-[#0c0c0c] border-t border-[#222222] pt-16 pb-10 px-5 md:px-20 text-[#e5e5e5]">
+    <footer id="main-footer" className="w-full bg-[#ffffff] border-t border-[#e5e2da] pt-14 pb-10 px-5 md:px-20 text-[#141414]">
       <div className="max-w-[1920px] mx-auto">
-        {/* Massive Display Title */}
-        <div className="border-b border-[#222222] pb-10 mb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-          <div>
-            <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-3">
-              AI CREATIVE DESIGNER · PROMPT ENGINEER
-            </span>
-            <h2 className="font-syne text-4xl sm:text-6xl md:text-7xl lg:text-[80px] font-extrabold uppercase tracking-tight text-[#e5e5e5] leading-[90%]">
-              MATHESH <span className="font-serif italic font-normal text-[#c4a47c]">A K S</span>
+        {/* Brand Wordmark & Back To Top */}
+        <div className="border-b border-[#e5e2da] pb-8 mb-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div className="space-y-2">
+            <h2 className="font-syne text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-[#141414]">
+              MATHESH A K S
             </h2>
+            <div className="flex flex-wrap items-center gap-2 font-jetbrains text-[10px] sm:text-[11px] text-[#6b654c] uppercase tracking-[0.18em]">
+              <span>AI CREATIVE DESIGNER</span>
+              <span className="text-[#dad6cc]">●</span>
+              <span>PROMPT ENGINEER</span>
+              <span className="text-[#dad6cc]">●</span>
+              <span>VISUAL STORYTELLER</span>
+            </div>
+            <p className="font-grotesk text-xs sm:text-sm text-[#5c5950] max-w-xl pt-1">
+              Directing creative AI, prompt architecture, and character consistency for commercial brands and cultural narratives.
+            </p>
           </div>
 
           <button
             id="footer-scroll-top-btn"
             onClick={scrollToTop}
-            className="self-start lg:self-auto px-5 py-3 border border-[#222222] bg-[#121212] text-[#888888] hover:text-[#c4a47c] hover:border-[#c4a47c] transition-all cursor-pointer flex items-center gap-2 font-jetbrains text-xs uppercase tracking-wider"
+            className="self-start lg:self-auto px-5 py-3 border border-[#dad6cc] bg-[#f4f2eb] text-[#141414] hover:bg-[#141414] hover:text-[#ffffff] hover:border-[#141414] transition-all cursor-pointer flex items-center gap-2 font-jetbrains text-xs uppercase tracking-wider font-semibold"
           >
             <span>BACK TO TOP</span>
             <ArrowUp size={14} />
@@ -39,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-12 font-jetbrains text-xs">
           {/* Col 1: Navigation */}
           <div>
-            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">NAVIGATION</span>
+            <span className="text-[#827e74] uppercase block mb-3.5 font-semibold tracking-wider">NAVIGATION</span>
             <ul className="space-y-2">
               <li>
                 <button
@@ -47,9 +65,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('home');
                     scrollToTop();
                   }}
-                  className="text-[#888888] hover:text-[#c4a47c] transition-colors cursor-pointer"
+                  className="text-[#5c5950] hover:text-[#141414] transition-colors cursor-pointer"
                 >
-                  HOME
+                  HOME // OVERVIEW
                 </button>
               </li>
               <li>
@@ -58,7 +76,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('work');
                     scrollToTop();
                   }}
-                  className="text-[#888888] hover:text-[#c4a47c] transition-colors cursor-pointer"
+                  className="text-[#5c5950] hover:text-[#141414] transition-colors cursor-pointer"
                 >
                   SELECTED WORKS
                 </button>
@@ -69,9 +87,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('about');
                     scrollToTop();
                   }}
-                  className="text-[#888888] hover:text-[#c4a47c] transition-colors cursor-pointer"
+                  className="text-[#5c5950] hover:text-[#141414] transition-colors cursor-pointer"
                 >
-                  ABOUT &amp; EXPERIENCE
+                  FOUNDER PROFILE &amp; STACK
                 </button>
               </li>
               <li>
@@ -80,9 +98,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('contact');
                     scrollToTop();
                   }}
-                  className="text-[#888888] hover:text-[#c4a47c] transition-colors cursor-pointer"
+                  className="text-[#5c5950] hover:text-[#141414] transition-colors cursor-pointer"
                 >
-                  CONTACT
+                  INITIATE BRIEF
                 </button>
               </li>
             </ul>
@@ -90,7 +108,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Col 2: Featured Case Studies */}
           <div>
-            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">CASE STUDIES</span>
+            <span className="text-[#827e74] uppercase block mb-3.5 font-semibold tracking-wider">CASE STUDIES</span>
             <ul className="space-y-2">
               <li>
                 <button
@@ -98,9 +116,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('jkans');
                     scrollToTop();
                   }}
-                  className="text-[#c4a47c] hover:text-white transition-colors cursor-pointer text-left"
+                  className="text-[#141414] hover:text-[#6b654c] transition-colors cursor-pointer text-left font-medium"
                 >
-                  01 / JKANS FOODS
+                  01 / JKANS FOODS (FOOD &amp; CINEMA)
                 </button>
               </li>
               <li>
@@ -109,74 +127,72 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     onNavigate('tempt');
                     scrollToTop();
                   }}
-                  className="text-[#c4a47c] hover:text-white transition-colors cursor-pointer text-left"
+                  className="text-[#141414] hover:text-[#6b654c] transition-colors cursor-pointer text-left font-medium"
                 >
-                  02 / TEMPT GAMING CAFE
+                  02 / TEMPT GAMING CAFE (SPORTS)
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Direct Connect */}
+          {/* Col 3: Direct Inquiries */}
           <div>
-            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">DIRECT CONTACT</span>
-            <div className="space-y-1.5 text-[#888888]">
-              <a
-                href="tel:+919789611569"
-                className="hover:text-[#c4a47c] transition-colors block text-left font-jetbrains text-xs text-[#e5e5e5]"
-              >
-                +91 97896 11569
-              </a>
-              <a
-                href="mailto:mathesh.aks@gmail.com"
-                className="hover:text-[#c4a47c] transition-colors block text-left break-all text-xs"
-              >
-                mathesh.aks@gmail.com
-              </a>
-              <p className="text-[#888888] text-[11px] leading-relaxed pt-1">
-                Madurai &amp; Chennai, Tamil Nadu, India
-              </p>
-              <span className="inline-block mt-1 px-2 py-0.5 border border-[#c4a47c]/40 text-[#c4a47c] text-[10px]">
-                AVAILABLE FOR COLLABORATIONS
-              </span>
-            </div>
+            <span className="text-[#827e74] uppercase block mb-3.5 font-semibold tracking-wider">COMMUNICATION</span>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href={`mailto:${recipientEmail}`}
+                  className="inline-flex items-center gap-2 text-[#5c5950] hover:text-[#141414] transition-colors"
+                >
+                  <Mail size={13} className="text-[#6b654c]" />
+                  <span>{recipientEmail}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${phone}`}
+                  className="inline-flex items-center gap-2 text-[#5c5950] hover:text-[#141414] transition-colors"
+                >
+                  <Phone size={13} className="text-[#6b654c]" />
+                  <span>{displayPhone}</span>
+                </a>
+              </li>
+              <li>
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="inline-flex items-center gap-2 text-[#5c5950] hover:text-[#141414] transition-colors cursor-pointer"
+                >
+                  <MessageSquare size={13} className="text-[#6b654c]" />
+                  <span>WhatsApp Direct Chat</span>
+                </button>
+              </li>
+            </ul>
           </div>
 
-          {/* Col 4: Socials */}
+          {/* Col 4: Location & Core Position */}
           <div>
-            <span className="text-[#888888] uppercase block mb-3.5 font-semibold tracking-wider">CONNECT</span>
-            <div className="flex flex-col space-y-2 text-[#888888]">
-              <a
-                href="https://www.linkedin.com/in/mathesh-a-k-s-1333241b9"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[#c4a47c] transition-colors inline-flex items-center gap-1.5"
-              >
-                <span>LinkedIn Profile</span>
-                <span className="text-[#c4a47c]">↗</span>
-              </a>
-              <a
-                href="https://wa.me/919789611569"
-                target="_blank"
-                rel="noreferrer"
-                className="hover:text-[#c4a47c] transition-colors inline-flex items-center gap-1.5"
-              >
-                <span>WhatsApp Direct</span>
-                <span className="text-[#c4a47c]">↗</span>
-              </a>
+            <span className="text-[#827e74] uppercase block mb-3.5 font-semibold tracking-wider">HEADQUARTERS</span>
+            <p className="text-[#5c5950] leading-relaxed mb-3">
+              Madurai · Chennai<br />
+              Tamil Nadu, India
+            </p>
+            <div className="p-3 bg-[#f4f2eb] border border-[#e5e2da] font-jetbrains text-[10px] text-[#6b654c]">
+              <span className="font-bold block text-[#141414]">CREATIVE THESIS</span>
+              "AI is the medium. Direction is the difference."
             </div>
           </div>
         </div>
 
-        {/* Bottom Copyright Strip */}
-        <div className="pt-6 border-t border-[#222222] flex flex-col sm:flex-row items-center justify-between gap-4 font-jetbrains text-[11px] text-[#888888]">
+        {/* Bottom Bar with Copyright */}
+        <div className="border-t border-[#e5e2da] pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-jetbrains text-[11px] text-[#827e74]">
           <div>
-            © 2025–2026 MATHESH A K S. Designed with intentional restraint.
+            <span>© 2026 MATHESH A K S. ALL RIGHTS RESERVED.</span>
           </div>
 
-          <div className="flex items-center gap-2 text-[#c4a47c]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c4a47c]"></span>
-            <span>M·AKS // PORTFOLIO</span>
+          <div className="flex items-center gap-4 text-[#5c5950]">
+            <span>EXECUTIVE PORTFOLIO</span>
+            <span>●</span>
+            <span>TAMIL NADU → GLOBAL</span>
           </div>
         </div>
       </div>

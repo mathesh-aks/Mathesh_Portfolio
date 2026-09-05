@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ViewType, GalleryItem } from './types';
 import { Navbar } from './components/Navbar';
 import { ShaderBackground } from './components/ShaderBackground';
@@ -9,6 +9,7 @@ import { CreativeStackSection } from './components/CreativeStackSection';
 import { CaseStudyJkans } from './components/CaseStudyJkans';
 import { CaseStudyTempt } from './components/CaseStudyTempt';
 import { WorkView } from './components/WorkView';
+import { AboutView } from './components/AboutView';
 import { ContactView } from './components/ContactView';
 import { LightboxModal } from './components/LightboxModal';
 import { Footer } from './components/Footer';
@@ -27,12 +28,12 @@ export function App() {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     } else {
-      setCurrentView('work');
+      handleNavigate('work');
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#e5e5e5] flex flex-col justify-between selection:bg-[#c4a47c] selection:text-[#080808] relative font-grotesk">
+    <div className="min-h-screen bg-[#fbfbf9] text-[#141414] flex flex-col justify-between selection:bg-[#141414] selection:text-[#ffffff] relative font-grotesk">
       {/* Top Fixed Navigation */}
       <Navbar
         currentView={currentView}
@@ -51,28 +52,28 @@ export function App() {
             <FeaturedWorksSection onNavigate={handleNavigate} />
             <ExperienceSection />
             <CreativeStackSection />
-            
-            {/* Quick Inquiry CTA Strip */}
-            <section className="w-full px-5 md:px-20 py-20 border-b border-[#222222] bg-[#0c0c0c] text-center">
+
+            {/* Strategic Quick Inquiry CTA Strip */}
+            <section className="w-full px-5 md:px-20 py-20 border-b border-[#e5e2da] bg-[#ffffff] text-center">
               <div className="max-w-3xl mx-auto">
-                <span className="font-jetbrains text-xs text-[#c4a47c] uppercase tracking-[0.25em] block mb-3">
-                  COLLABORATE &amp; EXPERIMENT
+                <span className="font-jetbrains text-xs text-[#6b654c] uppercase tracking-[0.25em] block mb-3 font-semibold">
+                  COMMERCIAL COLLABORATION
                 </span>
-                <h3 className="font-syne text-3xl sm:text-4xl md:text-5xl font-bold text-[#e5e5e5] uppercase mb-6">
-                  Ready to turn an idea into a <span className="font-serif italic font-light text-[#c4a47c]">visual experience</span>?
+                <h3 className="font-syne text-3xl sm:text-4xl md:text-5xl font-bold text-[#141414] uppercase mb-6 leading-tight">
+                  Ready to elevate brand strategy with <span className="font-serif italic font-normal text-[#6b654c]">directed AI</span>?
                 </h3>
                 <div className="flex flex-wrap justify-center gap-4">
                   <button
                     onClick={() => handleNavigate('contact')}
-                    className="px-8 py-4 bg-[#c4a47c] text-[#080808] font-jetbrains text-xs font-bold uppercase tracking-widest hover:bg-[#e5e5e5] transition-colors cursor-pointer shadow-[0_0_20px_rgba(196,164,124,0.2)]"
+                    className="px-8 py-4 bg-[#141414] text-[#ffffff] font-jetbrains text-xs font-semibold uppercase tracking-widest hover:bg-[#33302a] transition-colors cursor-pointer shadow-[0_2px_10px_rgba(20,20,20,0.08)]"
                   >
-                    Initiate Project Brief
+                    Initiate Executive Brief
                   </button>
                   <button
                     onClick={() => handleNavigate('work')}
-                    className="px-8 py-4 bg-transparent border border-[#222222] text-[#e5e5e5] font-jetbrains text-xs uppercase tracking-widest hover:border-[#c4a47c] hover:text-[#c4a47c] transition-colors cursor-pointer"
+                    className="px-8 py-4 bg-[#ffffff] border border-[#dad6cc] text-[#141414] font-jetbrains text-xs uppercase tracking-widest hover:bg-[#f4f2eb] hover:border-[#141414] transition-colors cursor-pointer"
                   >
-                    View All Works
+                    Explore Selected Works
                   </button>
                 </div>
               </div>
@@ -91,12 +92,7 @@ export function App() {
 
         {currentView === 'tempt' && <CaseStudyTempt onNavigate={handleNavigate} />}
 
-        {currentView === 'about' && (
-          <div className="pt-[80px]">
-            <ExperienceSection />
-            <CreativeStackSection />
-          </div>
-        )}
+        {currentView === 'about' && <AboutView onNavigate={handleNavigate} />}
 
         {currentView === 'contact' && <ContactView onNavigate={handleNavigate} />}
       </main>
